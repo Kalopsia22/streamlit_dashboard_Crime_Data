@@ -11,17 +11,27 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
 
 # Streamlit app title
 st.title("Crime Data Analysis Dashboard")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+
+df = None
+
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.write("### Data Preview")
     st.dataframe(df.head())
+elif os.path.exists('crime_data.csv'):
+    st.info("Using default crime_data.csv")
+    df = pd.read_csv('crime_data.csv')
+    st.write("### Data Preview")
+    st.dataframe(df.head())
 
+if df is not None:
     # Histogram for Age distributions
     st.subheader("Age Distribution")
     fig, ax = plt.subplots(figsize=(10, 5))
