@@ -12,6 +12,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+from utils import validate_columns
 
 # Streamlit app title
 st.title("Crime Data Analysis Dashboard")
@@ -32,6 +33,8 @@ elif os.path.exists('crime_data.csv'):
     st.dataframe(df.head())
 
 if df is not None:
+    validate_columns(df)
+
     # Histogram for Age distributions
     st.subheader("Age Distribution")
     fig, ax = plt.subplots(figsize=(10, 5))
