@@ -23,15 +23,14 @@ df = None
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
-    st.write("### Data Preview")
-    st.dataframe(df.head())
 elif os.path.exists('crime_data.csv'):
     st.info("Using default crime_data.csv")
     df = pd.read_csv('crime_data.csv')
+
+if df is not None:
     st.write("### Data Preview")
     st.dataframe(df.head())
 
-if df is not None:
     # Histogram for Age distributions
     st.subheader("Age Distribution")
     fig, ax = plt.subplots(figsize=(10, 5))
