@@ -22,9 +22,12 @@ uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
 df = None
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.write("### Data Preview")
-    st.dataframe(df.head())
+    try:
+        df = pd.read_csv(uploaded_file)
+        st.write("### Data Preview")
+        st.dataframe(df.head())
+    except Exception as e:
+        st.error(f"Error reading CSV file: {e}")
 elif os.path.exists('crime_data.csv'):
     st.info("Using default crime_data.csv")
     df = pd.read_csv('crime_data.csv')
