@@ -55,7 +55,12 @@ if df is not None:
     # Race distribution comparison
     st.subheader("Offender and Victim Race Comparison")
     fig, ax = plt.subplots(figsize=(10, 6))
-    df[['Offender_Race', 'Victim_Race']].melt(var_name='Type', value_name='Race').groupby(['Type', 'Race']).size().unstack().T.plot(kind='bar', stacked=True, ax=ax)
+    race_df = df[['Offender_Race', 'Victim_Race']]
+    melted_df = race_df.melt(var_name='Type', value_name='Race')
+    grouped_df = melted_df.groupby(['Type', 'Race']).size()
+    unstacked_df = grouped_df.unstack()
+    plot_df = unstacked_df.T
+    plot_df.plot(kind='bar', stacked=True, ax=ax)
     ax.set_ylabel('Count')
     st.pyplot(fig)
 
